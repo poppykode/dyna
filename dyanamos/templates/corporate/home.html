@@ -1,0 +1,241 @@
+{% extends 'shared/base.html' %}
+{% load staticfiles %}
+{% block title %}Dynamos Football club{% endblock %}
+{% block content %}
+							
+<div id="myCarousel" class="carousel slide" data-ride="carousel">
+		<!-- Indicators -->
+		<ol class="carousel-indicators">
+		  <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+		  <li data-target="#myCarousel" data-slide-to="1"></li>
+		  <li data-target="#myCarousel" data-slide-to="2"></li>
+		</ol>
+	
+		<!-- Wrapper for slides -->
+	  
+		{% if sliders %}
+	<div class="carousel-inner">
+		
+			{% for slider in sliders %}
+		  <div class="item  {% if forloop.first %}active{% endif%}">
+			<img src="{{slider.background_image.url}}" alt="Los Angeles" style="width:100%;height:600px;">
+			<div class="carousel-caption" style="padding-bottom:250px;">
+			  <h1 style="color:{{slider.heading_color}};">{{slider.heading|title}}</h1>
+			  <h4 style="color:{{slider.description_color}};">{{slider.description|title|upper|truncatechars:200}}...</h4>
+			  <p><a href="{{slider.button_link}}" target="_blank" class="btn btn-default btn-bordered btn-sm">{{slider.button_text}}</a></p>
+			</div>
+		  </div>
+		  {% endfor %}
+	
+	
+		</div>
+		{% else %}
+	<div class="container">
+			<h1>no sliders</h1>
+	</div>
+	
+	{% endif %}
+		<!-- Left and right controls -->
+		<a class="left carousel-control" href="#myCarousel" data-slide="prev">
+		  <!-- <span class="glyphicon glyphicon-chevron-left"></span> -->
+		  
+		  <span class="sr-only">Previous</span>
+		</a>
+		<a class="right carousel-control" href="#myCarousel" data-slide="next">
+		  <!-- <span class="glyphicon glyphicon-chevron-right"></span> -->
+		  <span class="sr-only">Next</span>
+		</a>
+	  </div>
+
+
+	<div class="clearfix"></div>
+<!--  Moto -->
+	<div class="intro-wrapp paddingtop-clear">
+			<div class="container">
+				<div class="row" style="text-align:center;margin-top:20px;">
+					<div class="col-md-12">
+					<h3><span style="color:#a94442">#</span>DEMBARE BHORA</h3>
+				
+					</div>
+				</div>
+			</div>
+		</div>
+        <!-- End Moto -->
+        	<!-- News -->
+
+	<div id="blog" class="contain-wrapp padding-bot50" style="background-color: #31387d;">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-8 col-md-offset-2">
+					<div class="title-head centered">
+						<h3 style="color: #ffffff;">LATEST NEWS</h3>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				{% if news%}
+					{% for news in news %}
+				<div class="col-md-3">
+					<div class="recent-widget recent-article">
+						<div class="post">
+							<img src="{{news.image.url}}" class="img-responsive" alt="{{image.name}}" style="height:155px;width:auto;">
+							<ul class="post-meta">
+								<li><a href="#"><i class="fa fa-calendar"></i> {{news.date_created}}</a></li>
+								<li><a href="#"><i class="fa fa-user"></i> Admin</a></li>
+								<!-- <li><a href="#"><i class="fa fa-comments"></i> 0</a></li> -->
+							</ul>
+							<hr>
+							<h6><a href="#"  style="color:#a94442;">{{news.heading|upper|truncatechars:25}}..</a></h6>
+
+							<p><a href="{% url 'news:news_detail' news.id %}" class="btn btn-default btn-bordered btn-sm">Read more</a></p>
+							<hr>
+						</div>
+					</div>
+				</div>
+				{% endfor %}
+				{% else %}
+				<div class="col-md-12">
+					<h2>no news posted yet</h2>
+				</div>
+                {% endif %}
+			</div>
+		</div>
+	</div>
+
+    <!-- End News -->
+    	<!-- Start Images Gallery -->
+	<div class="row"  style="background-image:url('img/stadiu.jpg');background-attachment:fixed;background-position: center;background-repeat: no-repeat;background-size: cover;">
+		<div id="gallery" class="masonry gallery box container" style="padding-top:20px;">
+			<div class="grid-sizer col-md-4 col-sm-4 col-xs-6"></div>
+			<!-- Start Gallery 01 -->
+			<div data-filter="web" class="grid-item col-md-4 col-sm-4 col-xs-12">
+				<div class="img-wrapper" style="border: 1px solid #a94442;">
+					<img src="{% static 'img/fanzone.jpg' %}" class="img-responsive" alt="" />
+					<div class="img-caption bottomSlide">
+						<div class="content" style="background-color: #31387dad;">
+							<h4><a href="#">FAN ZONE</a></h4>
+
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- End Gallery 01 -->
+
+			<!-- Star Gallery 02 -->
+			<div data-filter="graphic" class="grid-item col-md-4 col-sm-4 col-xs-12">
+				<div class="img-wrapper" style="border: 1px solid #a94442;">
+					<img src="{% static 'img/academy.jpg' %}" class="img-responsive" alt="" />
+					<div class="img-caption bottomSlide">
+						<div class="content" style="background-color: #31387dad;">
+							<h4><a href="#">ACADEMY</a></h4>
+
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- End Gallery 02 -->
+
+			<!-- Start Gallery 03 -->
+			<div data-filter="app" class="grid-item col-md-4 col-sm-4 col-xs-12">
+				<div class="img-wrapper" style="border: 1px solid #a94442;">
+					<img src="{% static 'img/tickets.jpg' %}" class="img-responsive" alt="" />
+					<div class="img-caption bottomSlide">
+						<div class="content" style="background-color: #31387dad;">
+							<h4><a href="#">TICKETS</a></h4>
+
+						</div>
+					</div>
+				</div>
+				<!-- End Gallery 03 -->
+
+			</div>
+		</div>
+	</div>
+	<!-- fixtures -->
+	<div class="dy-bg">
+{% if fixtures %}
+	<div class="container" style="padding:10px 0 15px 0;">
+		<div class="row">
+			<div class="col-md-8 col-md-offset-2">
+				<div class="title-head centered">
+					<h3>FIXTURES</h3>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+				{% for fixture in fixtures %}
+			<div style="text-align:center;margin-bottom:10px;">
+
+		<div class="col-md-4">
+			<div class="row">
+				<div class="col-md-12">
+						<img src="{{fixture.opponent1.logo.url}}" alt="{{fixture.opponent1}}" height="90px" width="auto"> 
+						<span class="dy-vs" style="margin: 20px;">VS</span>
+					   <img src="{{fixture.opponent2.logo.url}}" alt="{{fixture.opponent2}}"  height="90px" width="auto">
+
+				</div>
+				<div class="col-md-12" style="text-align:center;">
+					<p class="dy-white"><span>{{fixture.tournament_date}}</span></p>
+					<small class="dy-white"> <span><i>{{fixture.venue}}</i></span></small>
+				</div>
+
+
+			</div>
+			<div class="row">
+					<div class="col-md-12">
+							<button type="button" class="btn btn-link">Get Tickets</button>
+					</div>
+				</div>
+		</div>
+
+
+			</div>
+			{% endfor %}
+		</div>
+		<div class="row" style="text-align: center;margin-top:25px;">
+			<div class="col-md-12">
+					<a href="{% url 'fixtures:fixtures' %}" class="btn btn-default btn-bordered">VIEW ALL FIXTURES</a>
+					<!-- <a class="btn btn-blue btn-bordered" type="submit">VIEW ALL FIXTURES </a> -->
+			</div>
+		</div>
+
+
+	</div>
+	{% endif %}
+</div>
+    <!-- end fixtures -->
+    	<!-- sponsors -->
+	<div class="contain-wrapp gray-container">
+		<div class="container">
+				{% if sponsors %}
+			<div class="row">
+
+
+											<div class="row">
+													{% for sponsor in sponsors %}
+												<div class="col-md-3">
+		
+														<a href="{{sponsor.url}}" target="_blank" class="client-logo" style="padding: 19px 0px 0px;">
+																<img src="{{sponsor.logo.url}}" class="client-default" alt="{{sponsor.name}}" height="100px" width="auto"/>
+																<img src="{{sponsor.logo1.url}}" class="client-hover" alt="{{sponsor.name}}"  height="100px" width="auto"/>
+															</a>
+												</div>
+											
+												{% endfor %}
+											</div>
+									
+			</div>
+			{% else %}
+			<div class="row" style="text-align:center;margin-top:20px;">
+					<div class="col-md-12">
+					<h3><span style="color:#a94442">#</span>SINCE 1963</h3>
+				
+					</div>
+		</div>
+			{% endif %}
+	
+	</div>
+	</div>
+	<!-- End Sponsors -->
+    
+{% endblock %}

@@ -1,0 +1,70 @@
+{% extends 'shared/base.html' %}
+{% load staticfiles %}
+{% block title %}Dynamos Fixtures{% endblock %}
+{% block content %}
+<div class="contain-wrapp padding-bot60">	
+		<div class="container">
+                <div class="title-head centered">
+                        <h3>Upcoming Games/Fixtures</h3>
+                    </div> 
+
+
+                    {% if fixtures %}
+                    <div class="container" style="padding:10px 0 15px 0;">
+                            <div style="background-color: #EAEAEA; padding-top:5%;">
+                            {% for fix in fixtures %}
+
+                        <div class="row" style="text-align:center;">                 
+                       
+                        <div class="col-md-2">
+                                <img src="{{fix.opponent1.logo.url}}" alt="{{fix.opponent1}}" height="70px" width="auto">
+                             
+                        </div>
+                        <div class="col-md-2">
+                              
+                                <img src="{{fix.opponent2.logo.url}}" alt="{{fix.opponent2}}"  height="70px" width="auto">
+                        </div>
+                        <div class="col-md-4">
+                            <h6>{{fix.tournament_date}}</h6>   
+                            <h6>{{fix.tournament}}</h6> 
+                            <h6>{{fix.opponent1}} vs {{fix.opponent2}} </h6>                  
+                            <h6>{{fix.venue}}</h6>
+                        </div> 
+                        <div class="col-md-2">
+                                <button class="btn btn-primary btn-bordered">{{fix.home_or_away}}</button>
+                        </div>
+                        <div class="col-md-2">
+                                <button type="button" class="btn btn-link">Get Tickets</button>
+                        </div>
+    
+                         
+                        </div>
+                   
+                        <hr>
+                        {% endfor %}
+                    </div>
+                
+                    </div>
+
+                    <div class="pagination pagination-center">
+                        <span class="step-links">
+                                {% if fixtures.has_previous %}
+                                        <a href="?page=1" class="dy-pagination">&laquo; first</a>
+                                        <a href="?page={{ fixtures.previous_page_number }}" class="dy-pagination">previous</a>
+                                {% endif %}
+                
+                                <span class="current dy-pagination">
+                                        Page {{ fixtures.number }} of {{ fixtures.paginator.num_pages }}.
+                                </span>
+                
+                                {% if fixtures.has_next %}
+                                        <a href="?page={{ fixtures.next_page_number }}" class="dy-pagination">next</a>
+                                        <a href="?page={{ fixtures.paginator.num_pages }}"  class="dy-pagination">last &raquo;</a>
+                                {% endif %}
+                        </span>
+                </div>
+                    {% endif %}
+
+        </div>
+        </div>
+{% endblock %}

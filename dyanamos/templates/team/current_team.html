@@ -1,0 +1,150 @@
+ {% extends 'shared/base.html' %}
+{% load staticfiles %}
+{% block title %}Dynamos Current Team{% endblock %}
+{% block content %}
+	<!-- Start contain wrapp -->
+	<div class="contain-wrapp padding-bot60">	
+		<div class="container">
+                <div class="title-head centered">
+                        <h3>Current Team</h3>
+                    </div>         
+               
+            <div class="tab"  style="text-align:center;">
+                   
+                <button class="tablinks btn btn-primary  btn-bordered" onclick="openCity(event, 'all')" id="defaultOpen">All Players</button>
+                <button class="tablinks btn btn-primary  btn-bordered" onclick="openCity(event, 'goalkeepers')">Goalkeepers</button>
+                <button class="tablinks btn btn-primary  btn-bordered" onclick="openCity(event, 'defenders')">Defenders</button>
+                <button class="tablinks btn btn-primary  btn-bordered" onclick="openCity(event, 'midfielders')">Midfielders</button>
+                <button class="tablinks btn btn-primary btn-bordered" onclick="openCity(event, 'forwards')">Forwards</button>
+                <button class="tablinks btn btn-primary btn-bordered" onclick="openCity(event, 'tech-team')">Technical Team</button>
+              </div>
+              
+              <div id="all" class="tabcontent dy-tabcontent">
+               <div class="row">
+                {% if all_players %}
+                {% for all in all_players %}
+                   <div class="col-md-3" style="margin-top: 10px;">
+                    <div class="img-wrapper">
+                        {% if all.image %}
+                        <img src="{{all.image.url}}" class="img-responsive" alt="" style="height:170px; width:auto;"/>
+                        {% endif %}
+                        <div class="img-caption bottomSlide">
+                            <div class="content">
+                                <h5><a href="{% url 'team:current-details' all.id %}">{{all.name|title}}</a></h5>
+                                <p><a href="{% url 'team:current-details' all.id %}" class="dy-team-position">{{all.number}}</a></p>
+                                <p><strong>{{all.position}}</strong></p>
+                            </div>
+                        </div>
+                    </div>
+                   </div>
+                 
+                   {% endfor %}
+                   {% endif %}
+               
+               </div>
+            
+              </div>
+              
+              <div id="goalkeepers" class="tabcontent dy-tabcontent">
+                    <div class="row">
+                            {% if goalkeepers %}
+                            {% for goalkeeper in goalkeepers %}
+                               <div class="col-md-3">
+                                <div class="img-wrapper">
+                                    {% if goalkeeper.image %}
+                                    <img src="{{goalkeeper.image.url}}" class="img-responsive" alt="" style="height:170px; width:auto;"/>
+                                    {% endif %}
+                                    <div class="img-caption bottomSlide">
+                                        <div class="content">
+                                            <h5><a href="{% url 'team:current-details' goalkeeper.id %}">{{goalkeeper.name|title}}</a></h5>
+                                            <p><a href="{% url 'team:current-details' goalkeeper.id %}" class="dy-team-position">{{goalkeeper.number}}</a></p>
+                                        </div>
+                                    </div>
+                                </div>
+                               </div>
+                               {% endfor %}
+                               {% endif %}
+            
+                           </div>
+              </div>
+              
+              <div id="defenders" class="tabcontent dy-tabcontent">
+                    <div class="row">
+                            {% if defenders %}
+                            {% for defender in defenders %}
+                               <div class="col-md-3">
+                                <div class="img-wrapper">
+                                    {% if defender.image %}
+                                    <img src="{{defender.image.url}}" class="img-responsive" alt="" style="height:170px; width:auto;"/>
+                                    {% endif %}
+                                    <div class="img-caption bottomSlide">
+                                        <div class="content">
+                                            <h5><a href="{% url 'team:current-details' defender.id %}">{{defender.name|title}}</a></h5>
+                                            <p><a href="{% url 'team:current-details' defender.id %}" class="dy-team-position">{{defender.number}}</a></p>
+                                        </div>
+                                    </div>
+                                </div>
+                               </div>
+                               {% endfor %}
+                               {% endif %}
+            
+                           </div>
+              </div>
+              <div id="midfielders" class="tabcontent dy-tabcontent">
+                    <div class="row">
+                            {% if midfielders %}
+                            {% for midfielder in midfielders %}
+                               <div class="col-md-3">
+                                <div class="img-wrapper">
+                                    {% if midfielder.image %}
+                                    <img src="{{midfielder.image.url}}" class="img-responsive" alt="" style="height:170px; width:auto;"/>
+                                    {% endif %}
+                                    <div class="img-caption bottomSlide">
+                                        <div class="content">
+                                            <h5><a href="{% url 'team:current-details' midfielder.id %}">{{midfielder.name|title}}</a></h5>
+                                            <p><a href="{% url 'team:current-details' midfielder.id %}" class="dy-team-position">{{midfielder.number}}</a></p>
+                                        </div>
+                                    </div>
+                                </div>
+                               </div>
+                               {% endfor %}
+                               {% endif %}
+            
+                           </div>
+              </div>
+              <div id="forwards" class="tabcontent dy-tabcontent">
+                    <div class="row">
+                            {% if forwards %}
+                            {% for forward in forwards %}
+                               <div class="col-md-3">
+                                <div class="img-wrapper">
+                                    {% if forward.image %}
+                                    <img src="{{forward.image.url}}" class="img-responsive" alt="" style="height:170px; width:auto;"/>
+                                    {% endif %}
+                                    <div class="img-caption bottomSlide">
+                                        <div class="content">
+                                            <h5><a href="{% url 'team:current-details' forward.id %}">{{forward.name|title}}</a></h5>
+                                            <p><a href="{% url 'team:current-details' forward.id %}" class="dy-team-position">{{forward.number}}</a></p>
+                                        </div>
+                                    </div>
+                                </div>
+                               </div>
+                               {% endfor %}
+                               {% endif %}
+            
+                           </div>
+              </div>
+              <div id="tech-team" class="tabcontent dy-tabcontent">
+                <h3>tech-team</h3>
+                <p>Dembare technical Team</p>
+              </div>
+              
+              
+		
+		</div>
+    </div>
+    <!-- End contain wrapp -->
+    {% block script %}
+    <script src="{% static 'js/dy-custom.js' %}"></script>
+	{% endblock %}
+{% endblock %}

@@ -1,0 +1,68 @@
+{% extends 'shared/base.html' %}
+{% load staticfiles %}
+{% block title %}Dynamos Current Team{% endblock %}
+{% block content %}
+<div class="contain-wrapp padding-bot60">	
+		<div class="container">
+                <div class="title-head centered">
+                        <h3>Results</h3>
+                    </div> 
+
+                    	<!-- fixtures -->
+
+            {% if results %}
+                <div class="container" style="padding:10px 0 15px 0;">
+                        {% for result in results %}
+                    <div class="row" style="text-align:center;">                 
+                     <div class="col-md-2"></div>
+                     <div class="col-md-8">
+
+                    <div class="row">
+                    <div class="col-md-4">
+                            <img src="{{result.opponent1.logo.url}}" alt="{{result.opponent1}}" height="150px" width="auto"> 
+                    </div>
+                    <div class="col-md-4">
+                        <p>{{result.time}}</p>
+                        <p><span>{{result.opponent1_score}}</span> - <span>{{result.opponent2_score}}</span></p>
+                            <span class="dy-vs" style="margin: 20px;">VS</span>
+                            <p  style="margin: 20px;">{{result.venue}}</p>
+                    </div> 
+                    <div class="col-md-4">
+                            <img src="{{result.opponent2.logo.url}}" alt="{{result.opponent2}}"  height="150px" width="auto">
+                    </div>
+
+                    </div>
+
+
+                     </div>
+
+                     <div class="col-md-2"></div>
+
+                    </div>
+                    <hr>
+                    {% endfor %}
+            
+                </div>
+            
+
+                <div class="pagination pagination-center">
+                    <span class="step-links">
+                            {% if results.has_previous %}
+                                    <a href="?page=1" class="dy-pagination">&laquo; first</a>
+                                    <a href="?page={{ results.previous_page_number }}" class="dy-pagination">previous</a>
+                            {% endif %}
+            
+                            <span class="current dy-pagination">
+                                    Page {{ results.number }} of {{ results.paginator.num_pages }}.
+                            </span>
+            
+                            {% if results.has_next %}
+                                    <a href="?page={{ results.next_page_number }}" class="dy-pagination">next</a>
+                                    <a href="?page={{ results.paginator.num_pages }}"  class="dy-pagination">last &raquo;</a>
+                            {% endif %}
+                    </span>
+            </div>
+            {% endif %}
+        </div>
+</div>
+{% endblock %}

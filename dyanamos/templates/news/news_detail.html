@@ -1,0 +1,28 @@
+{% extends 'shared/base.html' %}
+{% load staticfiles %}
+{% block title %}Dynamos News Details{% endblock %}
+{% block content %}
+<div id="blog" class="contain-wrapp padding-bot50">
+    <div class="container">
+        <div class="row">
+                <div class="title-head">
+                        <h4>{{news_detail.heading}}</h4>
+                        <p>{{news_detail.date_created}}</p>
+                    </div>
+            <div class="col-md-8 col-md-offset-2">
+                         
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                    <img src="{{news_detail.image.url}}" class="alignleft img-responsive" alt="" />
+                    <p>{{news_detail.description}}</p>
+            </div>
+    </div>
+</div>
+</div>
+
+{% endblock %}
+
+
+

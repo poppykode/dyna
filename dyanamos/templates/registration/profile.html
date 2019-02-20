@@ -1,0 +1,91 @@
+{% extends 'shared/base.html' %}
+{% load staticfiles %}
+{% block title %}Profile{% endblock %}
+{% block content %}
+	<!-- Start contain wrapp -->
+	<div class="contain-wrapp padding-bot50" style="padding: 50px 0;">	
+            <div class="container">
+                <!-- Start member header -->
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="member-header">
+                            <img src="{% static 'img/fixtures-bg.jpg' %}" class="img-responsive dy-dashboard" alt="" />
+                        </div>
+                        <div class="navwrapp">
+                            <div class="photo-profile">
+                                <a href="#" class="photo-caption" data-toggle="modal" data-target="#myModal"><i class="fa fa-camera"></i></a>
+                                <img src="{% static 'img/chef02.jpg' %}" class="img-responsive" alt="" />
+                            </div>
+                            {% with request.resolver_match.url_name as url_name %}
+                            <ul class="membernav tab">
+                                <li class="{% if url_name == 'profile' %}active{% endif %}"><a href="{% url 'accounts:profile' %}"><i class="fa fa-dashboard"></i> Dashboard</a></li>
+                                <li class="{% if url_name == 'ftm' %}active{% endif %}"><a href="{% url 'accounts:ftm' %}"><i class="fa fa-pencil"></i> Fan of the match</a></li>
+                                <li  class="{% if url_name == 'ttt' %}active{% endif %}"><a href="{% url 'accounts:ttt' %}"><i class="fa fa-lock"></i>  Travel with team</a></li>
+                                <li  class="{% if url_name == 'mtm' %}active{% endif %}"><a href="{% url 'accounts:mtm' %}"><i class="fa fa-image"></i> Man of the Match</a></li>
+                                <li  class="{% if url_name == 'motm' %}active{% endif %}"><a href="{% url 'accounts:motm' %}"><i class="fa fa-upload"></i> Moment of the match</a></li>
+                                <li  class="{% if url_name == 'loyalty' %}active{% endif %}"><a href="{% url 'accounts:loyalty' %}"> Earn Points</a></li>
+                            </ul>
+                            {% endwith %} 
+
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-8">
+                        <aside class="member-identity">
+              
+                            <div class="widget">
+                                    <h5 class="widget-head">Profile detail</h5>
+                                    <ul class="profile">
+                                        <li>
+                                            <label>Username :</label>
+                                            {{user.username|title}}
+                                        </li>
+                                        <li>
+                                            <label>Name :</label>
+                                            {{user.first_name|title}}
+                                        </li>
+                                        <li>
+                                            <label>Last Name:</label>
+                                            {{user.last_name|title}}
+                                        </li>
+                                        <li>
+                                            <label>Email :</label>
+                                            {{user.email}}
+                                        </li>
+                         
+                                    </ul>
+                                    <a href="#" class="btn btn-primary">Edit Profile</a>
+                                 
+                                </div>
+                            </aside>
+                    </div>
+                    <div class="col-md-4">                      
+                            <div class="widget">
+                                    <h5 class="widget-head">Recent News</h5>
+                                    <div class="recent-widget">
+                                     {% if news %}
+                                     {% for new in news %}
+                                        <div class="post">
+                                        <a href="#" class="post-thumbnail"><img src="{{new.image.url}}" class="img-thumb" alt="" style="height:60px;width:70px;"></a>
+                                            <h6><a href="{% url 'news:news_detail' new.id %}">{{new.heading|truncatechars:200|title}}.</a></h6>
+                                            <small>{{new.date_created}}</small>
+                                        </div>
+                                        {% endfor %}
+                                        {% else %}
+                                        <div class="post">
+                                               
+                                                    <h6><a href="#">No Recent News</a></h6>
+                                           
+                                    {% endif %}
+                                  
+                                    </div>
+                                </div>
+                    </div>
+                  
+                     
+                </div>
+            </div>
+        </div>
+   
+{% endblock %}

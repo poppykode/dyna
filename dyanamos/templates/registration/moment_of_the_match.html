@@ -1,0 +1,64 @@
+{% extends 'shared/base.html' %}
+{% load staticfiles %}
+{% load crispy_forms_tags %}
+{% block title %}Dynamos moment of the match{% endblock %}
+{% block content %}
+	<!-- Start contain wrapp -->
+	<div class="contain-wrapp padding-bot50" style="padding: 50px 0;">	
+            <div class="container">
+                <!-- Start member header -->
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="member-header">
+                            <img src="{% static 'img/fixtures-bg.jpg' %}" class="img-responsive dy-dashboard" alt="" />
+                        </div>
+                        <div class="navwrapp">
+                            <div class="photo-profile">
+                                <a href="#" class="photo-caption" data-toggle="modal" data-target="#myModal"><i class="fa fa-camera"></i></a>
+                                <img src="{% static 'img/chef02.jpg' %}" class="img-responsive" alt="" />
+                            </div>
+                            {% with request.resolver_match.url_name as url_name %}
+                            <ul class="membernav tab">
+                                <li class="{% if url_name == 'profile' %}active{% endif %}"><a href="{% url 'accounts:profile' %}"><i class="fa fa-dashboard"></i> Dashboard</a></li>
+                                <li class="{% if url_name == 'ftm' %}active{% endif %}"><a href="{% url 'accounts:ftm' %}"><i class="fa fa-pencil"></i> Fan of the match</a></li>
+                                <li  class="{% if url_name == 'ttt' %}active{% endif %}"><a href="{% url 'accounts:ttt' %}"><i class="fa fa-lock"></i>  Travel with team</a></li>
+                                <li  class="{% if url_name == 'mtm' %}active{% endif %}"><a href="{% url 'accounts:mtm' %}"><i class="fa fa-image"></i> Man of the Match</a></li>
+                                <li  class="{% if url_name == 'motm' %}active{% endif %}"><a href="{% url 'accounts:motm' %}"><i class="fa fa-upload"></i> Moment of the match</a></li>
+                                <li  class="{% if url_name == 'loyalty' %}active{% endif %}"><a href="{% url 'accounts:loyalty' %}"> Earn Points</a></li>
+                            </ul>
+                            {% endwith %} 
+
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                        <div class="col-md-2"></div>
+                        <div class="col-md-8">
+                              {% if messages %}
+                              {% for message in messages %}
+                              <div class="alert alert-{{ message.tags }} alert-dismissible" role="alert">
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                  <span aria-hidden="true">&times;</span>
+                                </button>
+                                {{ message }}
+                              </div>
+                              {% endfor %}
+                              {% endif %}
+                              <form enctype="multipart/form-data" action="." method="POST">
+                                  {% csrf_token %}
+                                  <div class="form-group">
+                                      {{ form.name_of_the_moment|as_crispy_field}}
+                                      </div>
+                                  <div class="form-group">
+                                  {{ form.image_of_the_moment|as_crispy_field}}
+                                  </div>
+                              
+                                  <input type="submit" value="Upload Image" class="btn btn-default"/>
+                          </form>
+                      </div>
+                      <div class="col-md-2"></div>
+                </div>
+            </div>
+        </div>
+   
+{% endblock %}

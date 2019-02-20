@@ -1,0 +1,94 @@
+{% extends 'shared/base.html' %}
+{% load staticfiles %}
+{% block title %}Dynamos loyalty{% endblock %}
+{% block content %}
+	<!-- Start contain wrapp -->
+	<div class="contain-wrapp padding-bot50" style="padding: 50px 0;">	
+            <div class="container">
+                <!-- Start member header -->
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="member-header">
+                            <img src="{% static 'img/fixtures-bg.jpg' %}" class="img-responsive dy-dashboard" alt="" />
+                        </div>
+                        <div class="navwrapp">
+                            <div class="photo-profile">
+                                <a href="#" class="photo-caption" data-toggle="modal" data-target="#myModal"><i class="fa fa-camera"></i></a>
+                                <img src="{% static 'img/chef02.jpg' %}" class="img-responsive" alt="" />
+                            </div>
+                            {% with request.resolver_match.url_name as url_name %}
+                            <ul class="membernav tab">
+                                <li class="{% if url_name == 'profile' %}active{% endif %}"><a href="{% url 'accounts:profile' %}"><i class="fa fa-dashboard"></i> Dashboard</a></li>
+                                <li class="{% if url_name == 'ftm' %}active{% endif %}"><a href="{% url 'accounts:ftm' %}"><i class="fa fa-pencil"></i> Fan of the match</a></li>
+                                <li  class="{% if url_name == 'ttt' %}active{% endif %}"><a href="{% url 'accounts:ttt' %}"><i class="fa fa-lock"></i>  Travel with team</a></li>
+                                <li  class="{% if url_name == 'mtm' %}active{% endif %}"><a href="{% url 'accounts:mtm' %}"><i class="fa fa-image"></i> Man of the Match</a></li>
+                                <li  class="{% if url_name == 'motm' %}active{% endif %}"><a href="{% url 'accounts:motm' %}"><i class="fa fa-upload"></i> Moment of the match</a></li>
+                                <li  class="{% if url_name == 'loyalty' %}active{% endif %}"><a href="{% url 'accounts:loyalty' %}"> Earn Points</a></li>
+                            </ul>
+                            {% endwith %} 
+
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+
+
+                    {% if fixtures %}
+                    {% for fix in fixtures %}
+                    <div class="col-md-2"></div>
+                    <div class="col-md-8" style="text-align:center;">
+                            {% if messages %}
+                            {% for message in messages %}
+                            <div class="alert alert-{{ message.tags }} alert-dismissible" role="alert">
+                              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                              </button>
+                              {{ message }}
+                            </div>
+                            {% endfor %}
+                            {% endif %}
+                    <img src="{{fix.opponent1.logo.url}}" alt="{{fix.opponent1}}"  height="90px" width="auto">
+                       <span style="padding:0 3px 0 3px;">{{fix.opponent1}}</span>  <span class="dy-vs">VS</span> <span style="padding:0 3px 0 3px;">{{fix.opponent2}}</span>
+                        <img src="{{fix.opponent2.logo.url}}" alt="{{fix.opponent2}}"  height="90px" width="auto">
+                        <div>{{fix.tournament_date}}</div>
+                        <form action="{% url 'accounts:loyalty_points' %}" method="POST">
+                                {% csrf_token %}
+                        <div>                          
+                            <input type="hidden" value="{{fix.venue}}" name="venue"/>
+                            <input type="hidden" value="{{fix.tournament_date}}" name="tournament_date"/>
+                            <input type="hidden" value="{{fix.opponent1.name}} vs {{fix.opponent1.name}}" name="teams_played"/>
+                            <input type="submit" value="Endorse now" class="btn btn-primary btn-bordered" style="margin-top:5%;"/>
+                        </div>
+                        </form>
+
+                    </div>
+                  
+                    <div class="col-md-2"></div>
+                   
+                    {% endfor %}
+                    {% else %}
+                    <div class="col-md-4"></div>
+        
+                    <div class="col-md-4">
+                        <h5 style="text-align:center;">Wait for <a href="{% url 'fixtures:fixtures' %}">Next game.</a>  to Endorse and earn point</h5>
+                    </div>
+                    <div class="col-md-4"></div>
+                    {% endif %}
+                </div>
+                <hr>
+                <div class="row">
+                    <div class="col-md-4"></div>
+                {% if points %}
+                <div class="col-md-4" style="text-align:center;">
+               <h2"> {{forlyf}}</h2> 
+               <p><strong>Points</strong> </p>
+                        <h1>{{points}}</h1>
+               
+            </div>
+                {% endif %}
+                <div class="col-md-4"></div>
+            </div>
+            </div>
+        </div>
+   
+{% endblock %}

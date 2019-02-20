@@ -1,0 +1,55 @@
+{% extends 'shared/base.html' %}
+{% load staticfiles %}
+{% block title %}Dynamos Fanzone Gallery{% endblock %}
+{% block content %}
+	<!-- Start contain wrapp -->
+	<div class="contain-wrapp padding-bot60">	
+		<div class="container">
+                <div class="title-head centered">
+                        <h3>Videos</h3>
+                    </div> 
+                    <div class="row">
+                 {% if videos %}
+                 {% for vids in videos %}
+                            <div class="col-sm-3">
+                                    <small>{{vids.heading|title}}</small>
+                                    <div class="media-wrapper embed-container">
+                                        <iframe class="embed-responsive-item" src="{{vids.url}}"></iframe>
+                 
+                                    </div>
+                                    <div style="padding:5px 0 0 0;">
+
+                                   <p>share on: </p>
+                                    <a href="https://www.facebook.com/sharer/sharer.php?u=http://127.0.0.0:8000{{ request.get_full_path}}"><i class="fa fa-facebook icon-square fa-primary"></i></a>
+                                    <a href="https://twitter.com/home?status=Dynamos%20FC%20the%20home%20of%20footbal%20%40Dynamosfc_zw%20http%3A%2F%2F127.0.0.0%3A8000%2Fvideos"><i class="fa fa-twitter icon-square fa-primary"></i></a>
+                                </div>
+
+                                </div>
+                                {% endfor %}
+                                {% else %}
+                                <div class="col-md-12">
+                                    <h1>no videos yet</h1>
+                                </div>
+                                {% endif %}
+
+                    </div>
+                    <div class="pagination pagination-center">
+                        <span class="step-links">
+                            {% if videos.has_previous %}
+                                <a href="?page=1" class="dy-pagination">&laquo; first</a>
+                                <a href="?page={{ videos.previous_page_number }}" class="dy-pagination">previous</a>
+                            {% endif %}
+                    
+                            <span class="current dy-pagination">
+                                Page {{ videos.number }} of {{ videos.paginator.num_pages }}.
+                            </span>
+                    
+                            {% if videos.has_next %}
+                                <a href="?page={{ videos.next_page_number }}" class="dy-pagination">next</a>
+                                <a href="?page={{ videos.paginator.num_pages }}"  class="dy-pagination">last &raquo;</a>
+                            {% endif %}
+                        </span>
+                    </div>
+        </div>
+    </div>  
+    {% endblock %}

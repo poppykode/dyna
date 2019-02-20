@@ -1,0 +1,61 @@
+{% extends 'shared/base.html' %}
+{% load staticfiles %}
+{% block title %}Dynamos Player{% endblock %}
+{% block content %}
+<div id="blog" class="contain-wrapp padding-bot50">
+<div class="container">
+
+
+<div class="row">
+   
+        <div class="col-md-8 col-sm-8">
+                <img src="{{current_team.image.url}}" class="img-thumbnail img-responsive" alt="{{current_team.name}}" />
+         
+        
+        </div>
+        <div class="col-md-4 col-sm-4">
+    
+                <h4><span style="font-size:5.5rem;">#{{current_team.number}}</span></h4>
+                <h4 style="text-transform:uppercase;">{{current_team.name|title}}  {{current_team.surname|title}}</h4>
+                <p style="font-size:25px;">{{current_team.position}}</p>
+                <p><strong>Connect With me on:</strong> </p>
+                <a href="{{current_team.facebook}}" target="_blank"> <span class="fa-stack fa-lg"><i class="fa fa-circle fa-stack-2x"></i><i class="fa fa-facebook fa-stack-1x fa-inverse"></i></span></a>
+                <a href="{{current_team.twitter}}" target="_blank"><span class="fa-stack fa-lg"><i class="fa fa-circle fa-stack-2x"></i><i class="fa fa-twitter fa-stack-1x fa-inverse"></i></span></a>
+                
+        </div>    
+   
+
+        <hr/>
+  
+        <div class="col-md-8 col-sm-8">
+            <h5>Bio :</h5>
+            <p>{{current_team.bio}}</p>
+            <!-- <p>
+            In brute posidonium vel. Et per oportere expetenda definiebas. Mei ex decore meliore signiferumque. Ea denique explicari duo, te esse blandit concludaturque vel. Et sit iudico audiam.
+            </p> -->
+          
+        </div>
+        <div class="col-md-4 col-sm-4">
+            <table class="parameter-product">
+                <tbody><tr class="active">
+                    <td><strong><h5>Date of Birth</h5></strong></td>
+                    <td>{{current_team.date_of_birth}}</td>
+                </tr>
+                <tr>
+                    <td><strong><h5>Nationality</h5></strong></td>
+                    <td>{{current_team.nationality|title}}</td>
+                </tr>
+                <tr class="active">
+                    <td><strong><h5>Height</h5></strong></td>
+                    <td>{{current_team.height}} cm</td>
+                </tr>
+                <tr>
+                    <td><strong><h5>Weight</h5></strong></td>
+                    <td>{{current_team.weight}} kgs</td>
+                </tr>
+            </tbody></table>
+        </div>
+    </div>
+</div>
+</div>
+    {% endblock %}

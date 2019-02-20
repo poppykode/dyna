@@ -1,0 +1,53 @@
+{% extends 'shared/base.html' %}
+{% load staticfiles %}
+{% block title %}Dynamos Log{% endblock %}
+{% block content %}
+<div class="contain-wrapp padding-bot60">	
+		<div class="container">
+                <div class="title-head centered">
+                        <h3>Log</h3>
+                    </div> 
+
+ 
+<table class="table">
+        <thead>
+          <tr>
+            <th>Pos</th>
+            <th>Team</th>
+            <th>P</th>
+            <th>W</th>
+            <th>D</th>
+            <th>L</th>
+            <th>GF</th>
+            <th>GA</th>
+            <th>GD</th>
+            <th>PTS</th>
+           
+          </tr>
+        </thead>
+        <tbody>
+                {% for log in log_results %}  
+
+          <tr style="background-color: #EAEAEA;">
+            <td><strong></strong>{{log.position}}</td>
+            <td> <img src="{{log.team.logo.url}}" alt="{{log.name}}" height="60px" width="auto"></td>
+            <td><strong>{{log.played}}</strong></td>
+            <td><strong>{{log.won}}</strong></td>
+            <td><strong>{{log.draws}}</strong></td>
+            <td><strong>{{log.lost}}</strong></td>
+            <td><strong>{{log.goal_forward }}</strong></td>
+            <td><strong>{{log.goal_against}}</strong></td>
+            <td><strong>{{log.goal_difference}}</strong></td>
+            <td><strong>{{log.points}}</strong></td>
+            {% empty %}
+          <h5>No results posted yet</h5>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+
+    
+   
+        </div>
+    </div>
+{% endblock %}

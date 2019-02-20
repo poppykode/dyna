@@ -1,0 +1,64 @@
+{% extends 'shared/base.html' %}
+{% load staticfiles %}
+{% block title %}Dynamos Fanzone{% endblock %}
+{% block content %}
+	<!-- Start contain wrapp -->
+	<div class="contain-wrapp padding-bot60">	
+		<div class="container">
+                <div class="title-head centered">
+                        <h3>Photo Gallery Fanzone</h3>
+                    </div> 
+                 
+<div class="row">
+      
+    {% if photos %}
+{% for photo in photos %}
+        <div class="col-md-3 col-xs-6 product-wrapper">
+                <div class="img-wrapper">
+                      <p><small><strong>posted on:</strong><i> {{photo.date_created}}</i></small></p> 
+                    <div class="product-caption" style="opacity: 0;">
+                      <!-- print page current url -->
+                    
+                        <a href="#" target="_blank" class="share" style="bottom: 100%;"><i class="fa fa-share icon-square fa-default"></i></a>
+                        <div class="social-share">
+                            <a href="https://www.facebook.com/sharer/sharer.php?u=http://127.0.0.0:8000{{ request.get_full_path}}" class="facebook" style="opacity: 0;"><i class="fa fa-facebook icon-square fa-primary"></i></a>
+                            <a href="https://twitter.com/home?status=Dynamos%20FC%20the%20home%20of%20footbal%20%40Dynamosfc_zw%20http%3A%2F%2F127.0.0.0%3A8000%2Fphotos" class="twitter" style="opacity: 0;"><i class="fa fa-twitter icon-square fa-primary"></i></a>
+    
+                        </div>
+                    </div>
+                   
+                    <img src="{{photo.image.url}}" class="img-responsive" alt="{{photo.heading|title}}">
+                
+                    
+                </div>
+                <!-- <a href="#"><h6>{{photo.heading|title}}</h6></a> -->
+            </div>
+            {% endfor %}
+            {% else %}
+<div class="col-md-12">
+    <h1>no images yet</h1>
+</div>
+
+            {% endif %}
+</div>
+<div class="pagination pagination-center">
+    <span class="step-links">
+        {% if photos.has_previous %}
+            <a href="?page=1" class="dy-pagination">&laquo; first</a>
+            <a href="?page={{ photos.previous_page_number }}" class="dy-pagination">previous</a>
+        {% endif %}
+
+        <span class="current dy-pagination">
+            Page {{ photos.number }} of {{ photos.paginator.num_pages }}.
+        </span>
+
+        {% if photos.has_next %}
+            <a href="?page={{ photos.next_page_number }}" class="dy-pagination">next</a>
+            <a href="?page={{ photos.paginator.num_pages }}"  class="dy-pagination">last &raquo;</a>
+        {% endif %}
+    </span>
+</div>
+        </div>
+    </div>  
+
+    {% endblock %}

@@ -1,0 +1,322 @@
+<!DOCTYPE HTML>
+{% load staticfiles %}
+<!--[if lt IE 7]> <html class="no-js ie6 oldie" lang="en"> <![endif]-->
+<!--[if IE 7]>    <html class="no-js ie7 oldie" lang="en"> <![endif]-->
+<!--[if IE 8]>    <html class="no-js ie8 oldie" lang="en"> <![endif]-->
+<html class="no-js" lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="description" content="">
+	<meta name="keywords" content="">
+	<meta name="robots" content="index,follow">
+	<link rel="icon" href="{% static 'img/favicon.ico' %}">
+
+    <title>{% block title  %}{% endblock %}</title>
+
+	<!-- Bootstrap Core CSS -->
+	<link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+
+	<!-- Layerslider -->
+	<link href="{% static 'layerslider/css/layerslider.css' %}" rel="stylesheet">
+
+	<link href="{% static 'css/style.css' %}" rel="stylesheet">
+
+	<!-- Color -->
+	<link id="skin" href="{% static 'skins/default.css' %}" rel="stylesheet">
+	
+
+	<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+	<!--[if lt IE 9]>
+      <script src="js/html5shiv.min.js"></script>
+      <script src="js/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+
+<body>
+	<!-- Start preloading -->
+	<div id="loading" class="loading-invisible">
+		<div class="loading-center">
+			<div class="loading-center-absolute">
+				<div class="object" id="object_four"></div>
+				<div class="object" id="object_three"></div>
+				<div class="object" id="object_two"></div>
+				<div class="object" id="object_one"></div>
+			</div>
+			<p>Please wait...</p>
+		</div>
+	</div>
+	<script type="text/javascript">
+		document.getElementById("loading").className = "loading-visible";
+		var hideDiv = function () {
+			document.getElementById("loading").className = "loading-invisible";
+		};
+		var oldLoad = window.onload;
+		var newLoad = oldLoad ? function () {
+			hideDiv.call(this);
+			oldLoad.call(this);
+		} : hideDiv;
+		window.onload = newLoad;
+	</script>
+	<!-- End preloading -->
+
+	<!-- Start top -->
+	<div class="top-wrapp">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-12">
+					<ul class="top-share">
+						<li><a href="#"><i class="fa fa-facebook"></i></a></li>
+						<li><a href="#"><i class="fa fa-twitter"></i></a></li>
+
+					</ul>
+					<ul class="top-link">
+							{% if not user.is_authenticated %}
+							<li><a href="{% url 'login' %}"><i class="fa fa-lg fa-sign-in"></i> Login</a></li>
+							<li><a href="{% url 'accounts:register' %}"><i class="fa fa-lg fa-sign-out"></i> Register for membership</a></li>
+							{% else %}
+							<li><a href="{% url 'accounts:profile' %}" class="logout"><i class="fa fa-user"></i> Welcome :: {{user.first_name|title}}  {{user.last_name|title}} </a></li>
+							<li><a href="{% url 'logout' %}"><i class="fa fa-lg fa-sign-in"></i> Logout</a></li>	
+							{% endif %}
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- End top -->
+	<div class="clearfix"></div>
+
+	<!-- Start Navigation -->
+	<nav class="navbar navbar-default navbar-sticky white bootsnav">
+		<!-- Start Top Search -->
+		<div class="top-search">
+			<div class="container">
+				<div class="input-group">
+					<span class="input-group-addon"><i class="fa fa-search"></i></span>
+					<input type="text" class="form-control" placeholder="Search">
+					<span class="input-group-addon close-search"><i class="fa fa-times"></i></span>
+				</div>
+			</div>
+		</div>
+		<!-- End Top Search -->
+
+		<div class="container">
+
+
+
+			<!-- Start Header Navigation -->
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-menu">
+					<i class="fa fa-bars"></i>
+				</button>
+				<a class="navbar-brand" href="{% url 'home' %}"><img src="{% static 'img/dynamos logo.png' %}" style="height:100px;width:auto;" class="logo"
+					 alt=""></a>
+			</div>
+			<!-- End Header Navigation -->
+
+			<!-- Collect the nav links, forms, and other content for toggling -->
+			<div class="collapse navbar-collapse" id="navbar-menu">
+				<ul class="nav navbar-nav navbar-right" data-in="fadeInDown" data-out="fadeOutUp">
+					<li><a href="{% url 'home' %}">Home</a></li>
+
+					<li><a href="{% url 'news:news_list' %}">News</a></li>
+					<li class="dropdown">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown">The Team</a>
+						<ul class="dropdown-menu">
+							<li><a href="{% url 'team:current-team' %}">Current Team</a></li>
+							<li><a href="#">Academy</a></li>
+							<li><a href="#">History</a></li>
+
+						</ul>
+					</li>
+					<li class="dropdown">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown">Fixtures</a>
+						<ul class="dropdown-menu">
+							<li><a href="{% url 'fixtures:results' %}">Results</a></li>
+							<li><a href="{% url 'fixtures:fixtures' %}">Fixtures</a></li>
+							<li><a href="{% url 'fixtures:log' %}">Log</a></li>
+
+						</ul>
+					</li>
+
+
+
+					<li class="dropdown">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown">Shop</a>
+						<ul class="dropdown-menu">
+							<li><a href="#">Tickets</a></li>
+							<li><a href="#">Clothing</a></li>
+						</ul>
+					</li>
+					<li class="dropdown">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown">Fan Zone</a>
+						<ul class="dropdown-menu">
+							<li><a href="{% url 'fanzone:photos' %}">Photos</a></li>
+							<li><a href="{% url 'fanzone:videos' %}">Videos</a></li>
+							<li><a href="#">Social Media</a></li>
+						</ul>
+					</li>
+					<li class="dropdown">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown">The Club</a>
+						<ul class="dropdown-menu">
+							<li><a href="#">Club Records</a></li>
+							<li><a href="#">Trophy Cabinet</a></li>
+
+						</ul>
+					</li>
+
+				</ul>
+			</div><!-- /.navbar-collapse -->
+		</div>
+	</nav>
+	<!-- End Navigation -->
+    {% block content %}
+    {% endblock %}
+    <div class="clearfix"></div>
+
+	<!-- Start footer -->
+	<footer>
+		<div class="container">
+			<div class="row">
+				<div class="col-md-4 col-sm-4">
+					<div class="widget">
+						<h5>About Dynamos F.C.</h5>
+						<p>
+							Dynamos also known as Dembare is a football that was established since 1963.
+						</p>
+						<a href="#"><i class="fa fa-facebook fa-2x icon-square"></i></a>
+						<a href="#"><i class="fa fa-twitter fa-2x icon-square"></i></a>
+					</div>
+				</div>
+				<div class="col-md-2 col-sm-2">
+					<div class="widget">
+						<h5>Explor link</h5>
+						<ul class="list-icons link-list">
+							
+								<li><i class="fa fa-angle-double-right"></i> <a href="#">Feedback</a></li>
+								<li><i class="fa fa-angle-double-right"></i> <a href="#">Contact</a></li>
+							<li><i class="fa fa-angle-double-right"></i> <a href="#">Fan Zone</a></li>
+							<li><i class="fa fa-angle-double-right"></i> <a href="#">News</a></li>
+							<li><i class="fa fa-angle-double-right"></i> <a href="#">Fan Zone</a></li>
+							<li><i class="fa fa-angle-double-right"></i> <a href="#">Fixtures</a></li>
+							<li><i class="fa fa-angle-double-right"></i> <a href="#">The Team</a></li>
+							<li><i class="fa fa-angle-double-right"></i> <a href="#">Privacy Policy</a></li>
+							<li><i class="fa fa-angle-double-right"></i> <a href="#">Site map</a></li>
+						</ul>
+					</div>
+				</div>
+				<div class="col-md-3 col-sm-3">
+					<div class="widget">
+						<h5>Latest post</h5>
+						<ul class="recent-post">
+							<li>
+								<i class="fa fa-file-image-o post-data"></i>
+								<h6><a href="#">Luptatum omittantur duo ne impetus indoctum</a></h6>
+							</li>
+							<li>
+								<i class="fa fa-file-video-o post-data"></i>
+								<h6><a href="#">Eu pro ponderum gloriatur cu lorem denique</a></h6>
+							</li>
+							<li>
+								<i class="fa fa-file-text-o post-data"></i>
+								<h6><a href="#">No timeam sanctus iudicabit nec eum ut dicam</a></h6>
+							</li>
+						</ul>
+					</div>
+				</div>
+				<div class="col-md-3 col-sm-3">
+					<div class="widget">
+						<h5>Latest Tweets</h5>
+						<div class="tweet"></div>
+					</div>
+					<div class="widget">
+						<h5>Newsletter</h5>
+						<!-- Start Subscribe -->
+						<div class="input-group">
+							<input type="text" class="form-control" placeholder="Enter your email address...">
+							<span class="input-group-btn">
+								<button class="btn btn-primary" type="button"><i class="fa fa-send-o"></i></button>
+							</span>
+						</div>
+						<!-- End Subscribe -->
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="subfooter">
+			<p>2018 &copy; Copyright <a href="#">rubiem.</a> All rights Reserved.</p>
+		</div>
+	</footer>
+	<!-- End footer -->
+
+	<!-- Start to top -->
+	<a href="#" class="toTop">
+		<i class="fa fa-chevron-up"></i>
+	</a>
+	<!-- End to top -->
+
+	<!-- START JAVASCRIPT -->
+	<!-- Placed at the end of the document so the pages load faster -->
+	<script type="text/javascript" src="{% static 'js/jquery.min.js' %}"></script>
+	<script src="{% static 'js/bootstrap.min.js' %}"></script>
+	<script src="{% static 'js/jquery.easing-1.3.min.js' %}"></script>
+
+	<!-- Bootsnavs -->
+	<script src="{% static 'js/bootsnav.js' %}"></script>
+
+	<!-- Custom form -->
+	<script src="{% static 'js/form/jcf.js' %}"></script>
+	<script src="{% static 'js/form/jcf.scrollable.js' %}"></script>
+	<script src="{% static 'js/form/jcf.select.js' %}"></script>
+
+	<!-- Custom checkbox and radio -->
+	<script src="{% static 'js/checkator/fm.checkator.jquery.js' %}"></script>
+	<script src="{% static 'js/checkator/setting.js' %}"></script>
+
+	<!-- LayerSlider script files -->
+	<script src="{% static 'layerslider/js/greensock.js' %}"></script>
+	<script src="{% static 'layerslider/js/layerslider.transitions.js' %}"></script>
+	<script src="{% static 'layerslider/js/layerslider.kreaturamedia.jquery.js' %}"></script>
+	<script>
+		jQuery("#layerslider").layerSlider({
+			responsive: false,
+			responsiveUnder: 1920,
+			layersContainer: 1920,
+			skin: 'fullwidth',
+			navButtons: false,
+			navStartStop: false,
+			hoverPrevNext: false,
+			skinsPath: 'layerslider/skins/'
+		});
+	</script>
+
+	<!-- masonry -->
+	<script src="{% static 'js/masonry/masonry.min.js' %}"></script>
+	<script src="{% static 'js/masonry/masonry.filter.js' %}"></script>
+	<script src="{% static 'js/masonry/setting.js' %}"></script>
+
+	<!-- Parallax -->
+	<script src="{% static 'js/parallax/jquery.parallax-1.1.3.js' %}"></script>
+	<script src="{% static 'js/parallax/setting.js' %}"></script>
+
+	<!-- Twitter -->
+	<script src="{% static 'js/twitter/tweetie.min.js' %}"></script>
+	<script src="{% static 'js/twitter/ticker.js' %}"></script>
+	<script src="{% static 'js/twitter/setting.js' %}"></script>
+
+	<!-- Video Background -->
+	<script src="{% static 'js/background-video/jquery.background-video.js' %}"></script>
+	<script src="{% static 'js/background-video/setting.js' %}"></script>
+
+	<!-- Custom -->
+	<script src="{% static 'js/custom.js' %}"></script>
+	{% block script %}
+	{% endblock %}
+
+
+</body>
+
+</html>
