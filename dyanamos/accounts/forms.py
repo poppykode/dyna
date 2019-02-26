@@ -26,7 +26,7 @@ class UploadGamePromoForm(ModelForm):
 class FanOfTheMatchForm(ModelForm):
     class Meta:
         model = FanOfTheMatch
-        fields = ['name_of_fan','fan_image']
+        fields = ['name_of_fan','fan_image','published']
         labels = {
             'name_of_fan': _('Name of the Fan or any caption'),
             'fan_image': _('Upload Image'),
@@ -36,7 +36,7 @@ class FanOfTheMatchForm(ModelForm):
 class ManOfTheMatchForm(ModelForm):
     class Meta:
         model = ManOfTheMatch
-        fields = ['name_of_man_of_the_match','man_of_the_match_image']
+        fields = ['name_of_man_of_the_match','man_of_the_match_image','published']
         labels = {
             'name_of_man_of_the_match': _('Name of Man of the Match'),
             'man_of_the_match_image': _('Upload Image'),
@@ -45,7 +45,7 @@ class ManOfTheMatchForm(ModelForm):
 class TravelWithTheTeamForm(ModelForm):
     class Meta:
         model = TravelWithTheTeam
-        fields = ['team_caption','best_team_image']
+        fields = ['team_caption','best_team_image','published']
         labels = {
             'team_caption': _('Best travel with the team image'),
             'best_team_image ': _('Upload Image'),
@@ -55,7 +55,7 @@ class TravelWithTheTeamForm(ModelForm):
 class MomementOfTheMatchForm(ModelForm):
     class Meta:
         model = MomementOfTheMatch
-        fields = ['name_of_the_moment','image_of_the_moment']
+        fields = ['name_of_the_moment','image_of_the_moment','published']
         labels = {
             'name_of_the_moment': _('Best travel with the team image'),
             'image_of_the_moment ': _('Upload Image'),

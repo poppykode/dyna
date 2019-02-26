@@ -29,12 +29,15 @@ urlpatterns = [
     path('',include('team.urls')),
     path('',include('fixtures.urls')),
     path('',include('fanzone.urls')),
+    path('',include('admin_dynamos.urls')),
+    path('',include('subscriptions.urls')),
 
     # apis
     path('api/v1/',include('news.api.urls')),
     path('api/v1/',include('fixtures.api.urls')),
     path('api/v1/',include('team.api.urls')),
     path('api/v1/',include('fanzone.api.urls')),
+    
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

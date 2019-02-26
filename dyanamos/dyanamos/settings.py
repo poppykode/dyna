@@ -57,13 +57,18 @@ INSTALLED_APPS = [
     'team',
     'fanzone',
     'shop',
-    'rest_framework'
+    'rest_framework',
+    'admin_dynamos',
+    'corsheaders',
+    'subscriptions',
 ]
 CRISPY_TEMPLATE_PACK = 'bootstrap3'
+CORS_ORIGIN_ALLOW_ALL=True
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -144,7 +149,7 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = True
-
+PAYMENT_GATEWAY_BASE_URL = 'http://197.211.237.145:8402'
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.1/howto/static-files/

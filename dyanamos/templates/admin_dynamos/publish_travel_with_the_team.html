@@ -1,0 +1,33 @@
+{% extends 'shared/base.html' %}
+{% load staticfiles %}
+{% load crispy_forms_tags %}
+{% block title %}Dynamos travel with the team{% endblock %}
+{% block content %}
+
+<div class="row">
+    <div class="col-md-2"></div>
+<div class="col-md-8">
+        <h1>Are you sure you want to publish content?</h1>
+    {% if messages %}
+    {% for message in messages %}
+    <div class="alert alert-{{ message.tags }} alert-dismissible" role="alert">
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+      {{ message }}
+    </div>
+    {% endfor %}
+    {% endif %}
+  
+    <form enctype="multipart/form-data" action="." method="POST">
+        {% csrf_token %}
+        <div class="form-group">
+                {{ form.published|as_crispy_field}}
+            </div> 
+        <input type="submit" value="submit" class="btn btn-default"/>
+        <a href="{% url 'admin_dynamos:ftm' %}">Cancel</a>
+</form>
+</div>
+<div class="col-md-2"></div>
+</div>
+{% endblock %}

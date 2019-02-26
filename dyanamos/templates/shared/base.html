@@ -12,8 +12,7 @@
 	<meta name="description" content="">
 	<meta name="keywords" content="">
 	<meta name="robots" content="index,follow">
-	<link rel="icon" href="{% static 'img/favicon.ico' %}">
-
+	<link rel="shortcut icon" type="image/png" href="{% static 'img/favicon.ico' %}" />
     <title>{% block title  %}{% endblock %}</title>
 
 	<!-- Bootstrap Core CSS -->
@@ -120,6 +119,21 @@
 			<!-- Collect the nav links, forms, and other content for toggling -->
 			<div class="collapse navbar-collapse" id="navbar-menu">
 				<ul class="nav navbar-nav navbar-right" data-in="fadeInDown" data-out="fadeOutUp">
+						{% if user.is_superuser %}
+						<li class="dropdown">
+								<a href="#" class="dropdown-toggle" data-toggle="dropdown">Admin</a>
+								<ul class="dropdown-menu">
+									
+										<li><a href="{% url 'admin_dynamos:mtm' %}">Man of the match</a></li>
+										<li><a href="{% url 'admin_dynamos:ftm' %}">Fan of the match</a></li>
+										<li><a href="{% url 'admin_dynamos:motm' %}">Moment of the match</a></li>
+										<li><a href="{% url 'admin_dynamos:ttt' %}">Travel with the team</a></li>
+										<li><a href="{% url 'subs:subscribe' %}">Subcribe</a></li>
+									
+		
+								</ul>
+							</li>
+							{% endif %}
 					<li><a href="{% url 'home' %}">Home</a></li>
 
 					<li><a href="{% url 'news:news_list' %}">News</a></li>
@@ -127,8 +141,8 @@
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown">The Team</a>
 						<ul class="dropdown-menu">
 							<li><a href="{% url 'team:current-team' %}">Current Team</a></li>
-							<li><a href="#">Academy</a></li>
-							<li><a href="#">History</a></li>
+							<!-- <li><a href="#">Academy</a></li>
+							<li><a href="#">History</a></li> -->
 
 						</ul>
 					</li>
@@ -141,29 +155,35 @@
 
 						</ul>
 					</li>
+				
 
 
 
 					<li class="dropdown">
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown">Shop</a>
 						<ul class="dropdown-menu">
-							<li><a href="#">Tickets</a></li>
-							<li><a href="#">Clothing</a></li>
+							<!-- <li><a href="#">Tickets</a></li>
+							<li><a href="#">Clothing</a></li> -->
 						</ul>
 					</li>
 					<li class="dropdown">
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown">Fan Zone</a>
 						<ul class="dropdown-menu">
+		
 							<li><a href="{% url 'fanzone:photos' %}">Photos</a></li>
 							<li><a href="{% url 'fanzone:videos' %}">Videos</a></li>
-							<li><a href="#">Social Media</a></li>
+							<li><a href="{% url 'fanzone:voting' %}">Voting</a></li>
+
+							<!-- <li><a href="#">Social Media</a></li> -->
 						</ul>
 					</li>
 					<li class="dropdown">
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown">The Club</a>
 						<ul class="dropdown-menu">
-							<li><a href="#">Club Records</a></li>
-							<li><a href="#">Trophy Cabinet</a></li>
+							<!-- <li><a href="#">Club Records</a></li>
+							<li><a href="#">Trophy Cabinet</a></li> -->
+							
+					
 
 						</ul>
 					</li>
@@ -193,16 +213,15 @@
 				</div>
 				<div class="col-md-2 col-sm-2">
 					<div class="widget">
-						<h5>Explor link</h5>
+						<h5>Explore link</h5>
 						<ul class="list-icons link-list">
 							
-								<li><i class="fa fa-angle-double-right"></i> <a href="#">Feedback</a></li>
-								<li><i class="fa fa-angle-double-right"></i> <a href="#">Contact</a></li>
-							<li><i class="fa fa-angle-double-right"></i> <a href="#">Fan Zone</a></li>
-							<li><i class="fa fa-angle-double-right"></i> <a href="#">News</a></li>
-							<li><i class="fa fa-angle-double-right"></i> <a href="#">Fan Zone</a></li>
-							<li><i class="fa fa-angle-double-right"></i> <a href="#">Fixtures</a></li>
-							<li><i class="fa fa-angle-double-right"></i> <a href="#">The Team</a></li>
+							<!-- <li><i class="fa fa-angle-double-right"></i> <a href="#">Feedback</a></li>
+							<li><i class="fa fa-angle-double-right"></i> <a href="#">Contact</a></li> -->
+							<li><i class="fa fa-angle-double-right"></i> <a href="{% url 'fanzone:photos' %}">Fan Zone</a></li>
+							<li><i class="fa fa-angle-double-right"></i> <a href="{% url 'news:news_list' %}">News</a></li>
+							<li><i class="fa fa-angle-double-right"></i> <a href="{% url 'fixtures:fixtures' %}">Fixtures</a></li>
+							<li><i class="fa fa-angle-double-right"></i> <a href="{% url 'team:current-team' %}">The Team</a></li>
 							<li><i class="fa fa-angle-double-right"></i> <a href="#">Privacy Policy</a></li>
 							<li><i class="fa fa-angle-double-right"></i> <a href="#">Site map</a></li>
 						</ul>
@@ -212,7 +231,7 @@
 					<div class="widget">
 						<h5>Latest post</h5>
 						<ul class="recent-post">
-							<li>
+							<!-- <li>
 								<i class="fa fa-file-image-o post-data"></i>
 								<h6><a href="#">Luptatum omittantur duo ne impetus indoctum</a></h6>
 							</li>
@@ -223,7 +242,7 @@
 							<li>
 								<i class="fa fa-file-text-o post-data"></i>
 								<h6><a href="#">No timeam sanctus iudicabit nec eum ut dicam</a></h6>
-							</li>
+							</li> -->
 						</ul>
 					</div>
 				</div>

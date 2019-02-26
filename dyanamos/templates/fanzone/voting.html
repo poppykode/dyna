@@ -1,0 +1,123 @@
+{% extends 'shared/base.html' %}
+{% load staticfiles %}
+{% block title %}Profile{% endblock %}
+{% block content %}
+	<!-- Start contain wrapp -->
+	<div class="contain-wrapp padding-bot50" style="padding: 50px 0;">	
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-8 col-md-offset-2">
+                      <div class="title-head centered">
+                        <h3>Voting</h3>
+                      </div>
+                    </div>
+                  </div>
+                <div class="row">
+                    <div class="col-md-12">
+                     
+                        <div class="navwrapp">
+                        
+                            <ul class="membernav tab">
+                            
+                                <li> <a class="tablinks active" onclick="openCity(event, 'mtm')"  id="defaultOpen"> Man of the match</a></li>
+                                <li> <a class="tablinks" onclick="openCity(event, 'ftm')"> Fan of the match </a></li>
+                                <li> <a class="tablinks" onclick="openCity(event, 'motm')"> Moments of the game</a></li>
+                                <li> <a class="tablinks" onclick="openCity(event, 'ttt')"> Travel with the team</a></li>
+
+                            </ul>
+
+                                                 
+                                  <div id="mtm" class="tabcontent">
+                                
+                                    <div class="container">
+                                        {% if mtm %}
+                                        {% for mtm in mtm %}
+                                        <div class="row">
+                                            <div class="col-md-3">
+                                                    <small>{{mtm.name_of_man_of_the_match}}</small>
+                                                <img src="{{mtm.man_of_the_match_image.url}}" class="img-thumbnail img-responsive" alt="{{mtm.name_of_man_of_the_match}}" height="300px" width="auto" />
+                                              <p> <span class="badge badge-secondary">Votes {{mtm.votes}}</span>  <span><a href="{% url 'fanzone:mtm' mtm.id %}"> <i class="fa fa-2x fa-thumbs-o-up"></i></span></a></p>
+                                            </div>
+                                        </div>
+                                  
+                                        {% endfor %}
+
+                                        {% else %}
+                                        <h4>No man of the match posted yet</h4>
+                                        {% endif %}  
+                                       
+                                  </div>
+             
+                                  </div>
+                                  
+                                  <div id="ftm" class="tabcontent">
+                                      <div class="container">
+                                            {% if ftm %}
+                                            {% for ftm in ftm %}
+                                            <div class="row">
+                                                <div class="col-md-3">
+                                                        <small>{{ftm.name_of_fan}}</small>
+                                                    <img src="{{ftm.fan_image.url}}" class="img-thumbnail img-responsive" alt="{{ftm.name_of_fan}}" height="300px" width="auto" />
+                                                  <p> <span class="badge badge-secondary">Votes {{ftm.votes}}</span>  <span><a href="{% url 'fanzone:fan' ftm.id %}"> <i class="fa fa-2x fa-thumbs-o-up"></i></span></a></p>
+                                                </div>
+                                            </div>
+                                      
+                                            {% endfor %}
+    
+                                            {% else %}
+                                            <h4>No fan of the match posted yet</h4>
+                                            {% endif %}  
+                                      </div>
+                                   
+                                  </div>
+                                  
+                                  <div id="motm" class="tabcontent">
+                                      <div class="container">
+                                            {% if motm %}
+                                            {% for motm in motm %}
+                                            <div class="row">
+                                                <div class="col-md-3">
+                                                        <small>{{motm.name_of_the_moment}}</small>
+                                                    <img src="{{motm.image_of_the_moment.url}}" class="img-thumbnail img-responsive" alt="{{motm.name_of_the_moment}}" height="300px" width="auto" />
+                                                  <p> <span class="badge badge-secondary">Votes {{motm.votes}}</span>  <span><a href="{% url 'fanzone:momt' motm.id %}"> <i class="fa fa-2x fa-thumbs-o-up"></i></span></a></p>
+                                                </div>
+                                            </div>
+                                      
+                                            {% endfor %}
+    
+                                            {% else %}
+                                            <h4>No moments of the match posted yet</h4>
+                                            {% endif %}  
+                                      </div>
+                           
+                                  </div>
+                                  <div id="ttt" class="tabcontent">
+                                    <div class="container">
+                                            {% if ttt %}
+                                            {% for ttt in ttt %}
+                                            <div class="row">
+                                                <div class="col-md-3">
+                                                        <small>{{ttt.team_caption}}</small>
+                                                    <img src="{{ttt.best_team_image.url}}" class="img-thumbnail img-responsive" alt="{{ttt.team_caption}}" height="300px" width="auto" />
+                                                  <p> <span class="badge badge-secondary">Votes {{ttt.votes}}</span>  <span><a href="{% url 'fanzone:ttt' ttt.id %}"> <i class="fa fa-2x fa-thumbs-o-up"></i></span></a></p>
+                                                </div>
+                                            </div>
+                                      
+                                            {% endfor %}
+    
+                                            {% else %}
+                                            <h4>No travel with the team moments posted yet</h4>
+                                            {% endif %}  
+                                    </div>
+                         
+                                </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% block script %}
+        <script src="{% static 'js/dy-custom.js' %}"></script>
+        {% endblock %}    
+{% endblock %}

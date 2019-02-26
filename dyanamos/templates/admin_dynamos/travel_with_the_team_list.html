@@ -1,0 +1,87 @@
+{% extends 'shared/base.html' %}
+{% load staticfiles %}
+{% load crispy_forms_tags %}
+{% block title %}Dynamos moment of the match{% endblock %}
+{% block content %}
+<div id="blog" class="contain-wrapp padding-bot50">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-8 col-md-offset-2">
+        <div class="title-head centered">
+          <h3>Travel with the team</h3>
+        </div>
+      </div>
+    </div>
+    {% if messages %}
+    {% for message  in messages %}
+    <div class="alert alert-{{ message.tags }} alert-dismissible" role="alert">
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+      {{ message }}
+    </div>
+    {% endfor %}
+    {% endif %}
+    
+    
+    
+         {% if ttt %}
+        <table id="table_id" class="display table table-responsive" style="padding:4px;" >
+          <thead>
+              <tr>
+                <th>Game Moment Image</th>
+                <th>Uploaded by</th>
+                  <th>Moment of the game</th>              
+                  <th>Publish</th>
+                  <th>Number of Votes</th>
+                
+                
+              </tr>
+          </thead>
+          <tbody>
+            
+                {% for ttt in ttt %}
+              <tr>
+                  <td>
+                     
+                    <img src="{{ttt.best_team_image.url}}" alt="{{ttt.team_caption}}" height="100px;">
+                       
+                  </td>
+                  <td> {{ttt.user.username|title}}</td>
+                  <td>{{ttt.team_caption|title}}</td>
+                  {% if ttt.published == True %}
+                  <td> <a href="{% url 'admin_dynamos:travel_with_the_team' ttt.id %}" class="btn btn-default"> Unpublish </a></td>
+                  {% else %}
+                <td> <a href="{% url 'admin_dynamos:travel_with_the_team' ttt.id %}" class="btn btn-default">Publish </a></td> 
+                {% endif %}
+              </tr>
+              {% endfor %}
+            
+          </tbody>
+        </table>
+        {% else %}
+        <div class="row">
+                <h2>no fan of the match images uploaded</h2>
+        </div>
+        {% endif %}
+
+        <div class="pagination pagination-center" style="margin-bottom:40px;">
+          <span class="step-links">
+            {% if ttt.has_previous %}
+              <a href="?page=1" class="dy-pagination">&laquo; first</a>
+              <a href="?page={{ ttt.previous_page_number }}" class="dy-pagination">previous</a>
+            {% endif %}
+        
+            <span class="current dy-pagination">
+              Page {{ ttt.number }} of {{ ttt.paginator.num_pages }}.
+            </span>
+        
+            {% if ttt.has_next %}
+              <a href="?page={{ ttt.next_page_number }}" class="dy-pagination">next</a>
+              <a href="?page={{ ttt.paginator.num_pages }}"  class="dy-pagination">last &raquo;</a>
+            {% endif %}
+          </span>
+        </div>
+  </div>
+</div>
+{% endblock %}

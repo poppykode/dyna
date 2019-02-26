@@ -1,0 +1,87 @@
+{% extends 'shared/base.html' %}
+{% load staticfiles %}
+{% load crispy_forms_tags %}
+{% block title %}Dynamos moment of the match{% endblock %}
+{% block content %}
+<div id="blog" class="contain-wrapp padding-bot50">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-8 col-md-offset-2">
+        <div class="title-head centered">
+          <h3>Moment of the match</h3>
+        </div>
+      </div>
+    </div>
+    {% if messages %}
+    {% for message  in messages %}
+    <div class="alert alert-{{ message.tags }} alert-dismissible" role="alert">
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+      {{ message }}
+    </div>
+    {% endfor %}
+    {% endif %}
+    
+    
+    
+         {% if motm %}
+        <table id="table_id" class="display table table-responsive" style="padding:4px;" >
+          <thead>
+              <tr>
+                <th>Fan Image</th>
+                <th>Uploaded by</th>
+                  <th>Moment of the game</th>              
+                  <th>Publish</th>
+                  <th>Number of Votes</th>
+                
+                
+              </tr>
+          </thead>
+          <tbody>
+            
+                {% for motm in motm %}
+              <tr>
+                  <td>
+                     
+                                <img src="{{motm.image_of_the_moment.url}}" alt="{{motm.name_of_the_moment}}" height="100px;">
+                       
+                  </td>
+                  <td> {{motm.user.username|title}}</td>
+                  <td>{{motm.name_of_the_moment|title}}</td>
+                  {% if motm.published == True %}
+                  <td> <a href="{% url 'admin_dynamos:moment_of_the_match' motm.id %}" class="btn btn-default"> Unpublish </a></td>
+                  {% else %}
+                <td> <a href="{% url 'admin_dynamos:moment_of_the_match' motm.id %}" class="btn btn-default">Publish </a></td> 
+                {% endif %}
+              </tr>
+              {% endfor %}
+            
+          </tbody>
+        </table>
+        {% else %}
+        <div class="row">
+                <h2>no fan of the match images uploaded</h2>
+        </div>
+        {% endif %}
+
+        <div class="pagination pagination-center" style="margin-bottom:40px;">
+          <span class="step-links">
+            {% if ftm.has_previous %}
+              <a href="?page=1" class="dy-pagination">&laquo; first</a>
+              <a href="?page={{ ftm.previous_page_number }}" class="dy-pagination">previous</a>
+            {% endif %}
+        
+            <span class="current dy-pagination">
+              Page {{ ftm.number }} of {{ ftm.paginator.num_pages }}.
+            </span>
+        
+            {% if ftm.has_next %}
+              <a href="?page={{ ftm.next_page_number }}" class="dy-pagination">next</a>
+              <a href="?page={{ ftm.paginator.num_pages }}"  class="dy-pagination">last &raquo;</a>
+            {% endif %}
+          </span>
+        </div>
+  </div>
+</div>
+{% endblock %}

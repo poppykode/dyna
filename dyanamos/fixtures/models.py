@@ -29,6 +29,7 @@ class Fixture(models.Model):
     venue = models.CharField(max_length=255, blank=True)
     date_created = models.DateTimeField(null=True)
     tournament_date = models.DateField(null=True)
+    tournament_time = models.TimeField(null=True)
     
     def __str__(self):
         return self.opponent1.name +' vs '+ self.opponent2.name

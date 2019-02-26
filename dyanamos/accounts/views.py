@@ -14,6 +14,8 @@ from .forms import (
     MomementOfTheMatchForm,
 )
 import datetime
+from django.utils import timezone
+ 
 
 # Create your views here.
 
@@ -33,22 +35,6 @@ def membership_profile(request):
     news = News.objects.all()[:3]
     loggedin_user = User.objects.filter(id=request.user.id)
     return render(request,'registration/profile.html',{'news':news})
-
-@login_required
-def fan_of_the_match(request):
-    return render(request,'registration/fan_of_the_match.html')
-
-@login_required
-def man_of_the_match(request):
-    return render(request,'registration/man_of_the_match.html')
-
-@login_required
-def moment_of_the_match(request):
-    return render(request,'registration/moment_of_the_match.html')
-
-@login_required
-def travel_with_the_team(request):
-    return render(request,'registration/travel_with_the_team.html')
 
 def calculate_points(request):
     points = Loyalty.objects.filter(user=request.user)
@@ -101,61 +87,78 @@ def loyalty_points(request):
             messages.error(request, 'You have already endorsed the game.')
             return redirect('accounts:loyalty')
 
+@login_required
 def fan_of_the_match(request):
-    if request.method == 'POST':
-        form= FanOfTheMatchForm(request.POST,request.FILES)
-        if form.is_valid():
-            new_form = form.save(commit=False)
-            new_form.user = request.user
-            form.save()
-            messages.success(request, 'image has been successfully uploaded now waiting Admin approval!')
-            return redirect('accounts:ftm')
-    else:
-        form= FanOfTheMatchForm()
-    return render(request,'registration/fan_of_the_match.html',{'form':form })
+    if request.user.sub_expiration_date < timezone.now():
+        messages.error(request, 'Please makepayment!')
+        return redirect('subs:make-payment-subscribe') 
+    else:   
+        if request.method == 'POST':
+            form= FanOfTheMatchForm(request.POST,request.FILES)
+            if form.is_valid():
+                new_form = form.save(commit=False)
+                new_form.user = request.user
+                form.save()
+                print(request.user.paid)
+                messages.success(request, 'image has been successfully uploaded now waiting Admin approval!')
+                return redirect('accounts:ftm')
+        else:
+            form= FanOfTheMatchForm()
+        return render(request,'registration/fan_of_the_match.html',{'form':form })
 
-
+@login_required
 def man_of_the_match(request):
-    if request.method == 'POST':
-        form= ManOfTheMatchForm(request.POST,request.FILES)
-        if form.is_valid():
-            new_form = form.save(commit=False)
-            new_form.user = request.user
-            form.save()
-            messages.success(request, 'image has been successfully uploaded now waiting Admin approval!')
-            return redirect('accounts:mtm')
+    if request.user.sub_expiration_date < timezone.now():
+        messages.error(request, 'Please makepayment!')
+        return redirect('subs:make-payment-subscribe')
     else:
-        form= ManOfTheMatchForm()
-    return render(request,'registration/man_of_the_match.html',{'form':form })
-
+        if request.method == 'POST':
+            form= ManOfTheMatchForm(request.POST,request.FILES)
+            if form.is_valid():
+                new_form = form.save(commit=False)
+                new_form.user = request.user
+                form.save()
+                messages.success(request, 'image has been successfully uploaded now waiting Admin approval!')
+                return redirect('accounts:mtm')
+        else:
+            form= ManOfTheMatchForm()
+        return render(request,'registration/man_of_the_match.html',{'form':form })
+  
+@login_required
 def travel_with_the_team(request):
-    if request.method == 'POST':
-        form= TravelWithTheTeamForm(request.POST,request.FILES)
-        if form.is_valid():
-            new_form = form.save(commit=False)
-            new_form.user = request.user
-            form.save()
-            messages.success(request, 'image has been successfully uploaded now waiting Admin approval!')
-            return redirect('accounts:ttt')
+    if request.user.sub_expiration_date < timezone.now():
+        messages.error(request, 'Please makepayment!')
+        return redirect('subs:make-payment-subscribe')
     else:
-        form= TravelWithTheTeamForm()
-    return render(request,'registration/travel_with_the_team.html',{'form':form })
+        if request.method == 'POST':
+            form= TravelWithTheTeamForm(request.POST,request.FILES)
+            if form.is_valid():
+                new_form = form.save(commit=False)
+                new_form.user = request.user
+                form.save()
+                messages.success(request, 'image has been successfully uploaded now waiting Admin approval!')
+                return redirect('accounts:ttt')
+        else:
+            form= TravelWithTheTeamForm()
+        return render(request,'registration/travel_with_the_team.html',{'form':form })
 
-       
+@login_required      
 def moment_of_the_match(request):
-    if request.method == 'POST':
-        form= MomementOfTheMatchForm(request.POST,request.FILES)
-        if form.is_valid():
-            new_form = form.save(commit=False)
-            new_form.user = request.user
-            form.save()
-            messages.success(request, 'image has been successfully uploaded now waiting Admin approval!')
-            return redirect('accounts:motm')
+    if request.user.sub_expiration_date > timezone.now():
+        messages.error(request, 'Please makepayment!')
+        return redirect('subs:make-payment-subscribe')
     else:
-        form= MomementOfTheMatchForm()
-    return render(request,'registration/moment_of_the_match.html',{'form':form })
-
-
+        if request.method == 'POST':
+            form= MomementOfTheMatchForm(request.POST,request.FILES)
+            if form.is_valid():
+                new_form = form.save(commit=False)
+                new_form.user = request.user
+                form.save()
+                messages.success(request, 'image has been successfully uploaded now waiting Admin approval!')
+                return redirect('accounts:motm')
+        else:
+            form= MomementOfTheMatchForm()
+        return render(request,'registration/moment_of_the_match.html',{'form':form})
 
     
 

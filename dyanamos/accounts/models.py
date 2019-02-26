@@ -5,9 +5,12 @@ from fixtures.models import Fixture
 
 
 # Create your models here.
+
 class User(AbstractUser):
     identification_number = models.CharField(max_length=255,blank=True, null=True)
-    # birth_day = models.DateField(_("Birth Day"), default=datetime.date.today)
+    paid = models.BooleanField(default=False)
+    sub_expiration_date = models.DateTimeField(default='2000-02-12 19:09:56.668926')
+   
 class UploadGamePromo(models.Model):
     user =  models.ForeignKey(User,on_delete=models.CASCADE)
     team_one = models.ForeignKey(Fixture,on_delete=models.CASCADE,related_name='fixture_one')
@@ -29,6 +32,7 @@ class FanOfTheMatch(models.Model):
     fan_image = models.ImageField(upload_to='fan/photo/',null=True, blank =True)
     date_created = models.DateTimeField(default=datetime.now(), blank=True)
     published =  models.BooleanField(default=False)
+    votes = models.PositiveIntegerField(default=0)
 
     def __str__(self):
         return self.name_of_fan
@@ -42,6 +46,7 @@ class ManOfTheMatch(models.Model):
     man_of_the_match_image = models.ImageField(upload_to='fan/photo/',null=True, blank =True)
     date_created = models.DateTimeField(default=datetime.now())
     published =  models.BooleanField(default=False)
+    votes = models.PositiveIntegerField(default=0)
 
     def __str__(self):
         return self.name_of_man_of_the_match
@@ -56,6 +61,7 @@ class TravelWithTheTeam(models.Model):
     best_team_image = models.ImageField(upload_to='fan/photo/',null=True, blank =True)
     date_created = models.DateTimeField(default=datetime.now())
     published =  models.BooleanField(default=False)
+    votes = models.PositiveIntegerField(default=0)
 
     def __str__(self):
         return self.team_caption
@@ -70,6 +76,7 @@ class Loyalty(models.Model):
     tournament_date =  models.CharField(max_length=255, blank=True,default='Feb. 20, 2019')
     date_created = models.DateTimeField(default=datetime.now(), blank=True)
     points = models.PositiveIntegerField(default=0)
+    
    
 
     def __str__(self):
@@ -87,6 +94,7 @@ class MomementOfTheMatch(models.Model):
     image_of_the_moment = models.ImageField(upload_to='fan/photo/',null=True, blank =True)
     date_created = models.DateTimeField(default=datetime.now())
     published =  models.BooleanField(default=False)
+    votes = models.PositiveIntegerField(default=0)
 
     def __str__(self):
         return self.name_of_the_moment

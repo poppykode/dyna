@@ -1,0 +1,92 @@
+{% extends 'shared/base.html' %}
+{% load staticfiles %}
+{% load crispy_forms_tags %}
+{% block title %}Dynamos man of the match{% endblock %}
+{% block content %}
+<div id="blog" class="contain-wrapp padding-bot50">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-8 col-md-offset-2">
+        <div class="title-head centered">
+          <h3>Man of the match</h3>
+        </div>
+      </div>
+    </div>
+    {% if messages %}
+    {% for message  in messages %}
+    <div class="alert alert-{{ message.tags }} alert-dismissible" role="alert">
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+      {{ message }}
+    </div>
+    {% endfor %}
+    {% endif %}
+    
+    
+    
+         {% if mtm_list %}
+        <table id="table_id" class="display table table-responsive" style="padding:4px;" >
+          <thead>
+              <tr>
+                <th>Fan Image</th>
+                <th>Uploaded by</th>
+                  <th>Name of fan</th>              
+                  <th>Publish</th>
+                  <th>Date created</th>
+                  <th>Number of Votes</th>
+                
+                
+              </tr>
+          </thead>
+          <tbody>
+            
+                {% for mtm in mtm_list %}
+              <tr>
+                  <td>
+                     
+                    <img src="{{mtm.man_of_the_match_image.url}}" alt="{{mtm.name_of_man_of_the_match}}" height="100px;">
+                       
+                  </td>
+                  <td> {{mtm.user.username|title}}</td>
+                  <td>{{mtm.name_of_man_of_the_match|title}}</td>
+                  {% if mtm.published == True %}
+                  <td> <a href="{% url 'admin_dynamos:man_of_the_match' mtm.id %}" class="btn btn-default"> Unpublish </a></td>
+                  {% else %}
+                <td> <a href="{% url 'admin_dynamos:man_of_the_match' mtm.id %}" class="btn btn-default">Publish </a></td> 
+                {% endif %}
+                <td>{{mtm.date_created}}</td>
+                <td><span class="badge badge-pill badge-success">{{mtm.votes}}</span></td>
+               
+              </tr>
+            
+              {% endfor %}
+             
+          </tbody>
+        </table>
+        {% else %}
+        <div class="row">
+                <h2>no man of the match images uploaded</h2>
+        </div>
+        {% endif %}
+
+        <div class="pagination pagination-center" style="margin-bottom:40px;">
+          <span class="step-links">
+            {% if mtm_list.has_previous %}
+              <a href="?page=1" class="dy-pagination">&laquo; first</a>
+              <a href="?page={{ mtm_list.previous_page_number }}" class="dy-pagination">previous</a>
+            {% endif %}
+        
+            <span class="current dy-pagination">
+              Page {{ mtm_list.number }} of {{ mtm_list.paginator.num_pages }}.
+            </span>
+        
+            {% if mtm_list.has_next %}
+              <a href="?page={{ mtm_list.next_page_number }}" class="dy-pagination">next</a>
+              <a href="?page={{ mtm_list.paginator.num_pages }}"  class="dy-pagination">last &raquo;</a>
+            {% endif %}
+          </span>
+        </div>
+  </div>
+</div>
+{% endblock %}
